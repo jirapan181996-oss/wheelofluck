@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prize Wheel Studio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="stage" aria-label="Random name wheel">
+        <div class="topbar">
+          <div>
+            <p class="eyebrow">Prize Wheel Studio</p>
+            <h1>Name Picker</h1>
+          </div>
+          <button class="icon-button" id="adminToggle" type="button" aria-label="Open admin panel" title="Admin panel">
+            <span aria-hidden="true">&#9881;</span>
+          </button>
+        </div>
+
+        <div class="wheel-wrap">
+          <div class="pointer" aria-hidden="true"></div>
+          <canvas id="wheelCanvas" width="900" height="900" aria-label="Spinning wheel"></canvas>
+          <button id="spinButton" class="spin-button" type="button">
+            <span>Spin</span>
+          </button>
+        </div>
+
+        <div class="winner-panel" aria-live="polite">
+          <span class="label">Winner</span>
+          <strong id="winnerName">Ready</strong>
+        </div>
+      </section>
+
+      <aside class="controls" aria-label="Wheel controls">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Entries</p>
+              <h2>Names</h2>
+            </div>
+            <button id="shuffleButton" class="ghost-button" type="button">Shuffle</button>
+          </div>
+          <label for="entriesInput" class="sr-only">Wheel names</label>
+          <textarea id="entriesInput" spellcheck="false"></textarea>
+          <label class="toggle-row" for="removeWinnerToggle">
+            <span>Remove winner</span>
+            <input id="removeWinnerToggle" type="checkbox" />
+          </label>
+          <div class="row-actions">
+            <button id="applyEntries" class="primary-button" type="button">Update wheel</button>
+            <button id="resetEntries" class="secondary-button" type="button">Reset</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Results</p>
+              <h2>History</h2>
+            </div>
+            <button id="clearHistory" class="ghost-button" type="button">Clear</button>
+          </div>
+          <ol id="historyList" class="history-list"></ol>
+        </section>
+      </aside>
+    </main>
+
+    <dialog id="adminDialog" class="admin-dialog">
+      <form method="dialog" class="admin-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Operator controls</p>
+            <h2>Admin Panel</h2>
+          </div>
+          <button class="icon-button small" value="close" aria-label="Close admin panel" title="Close" type="submit">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="admin-grid">
+          <label class="field">
+            <span>Spin mode</span>
+            <select id="spinMode">
+              <option value="random">Fair random</option>
+              <option value="guaranteed">Guaranteed winner</option>
+              <option value="landing-order">Landing order</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Guaranteed landing</span>
+            <select id="targetWinner"></select>
+          </label>
+
+          <label class="field">
+            <span>Spin time</span>
+            <input id="spinDuration" type="range" min="3" max="9" step="0.5" value="5.5" />
+          </label>
+
+          <label class="field">
+            <span>Extra revolutions</span>
+            <input id="spinRevolutions" type="number" min="4" max="14" value="8" />
+          </label>
+
+          <label class="field wide">
+            <span>Landing order</span>
+            <textarea id="landingOrderInput" spellcheck="false" placeholder="First winner&#10;Second winner&#10;Last winner"></textarea>
+          </label>
+        </div>
+
+        <p class="admin-note">
+          Guaranteed modes land on selected names by controlling the final wheel angle.
+        </p>
+      </form>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>

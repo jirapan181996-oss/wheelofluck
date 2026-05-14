@@ -11,6 +11,8 @@ const historyList = document.querySelector("#historyList");
 const clearHistory = document.querySelector("#clearHistory");
 const adminToggle = document.querySelector("#adminToggle");
 const adminDialog = document.querySelector("#adminDialog");
+const winnerDialog = document.querySelector("#winnerDialog");
+const winnerDialogName = document.querySelector("#winnerDialogName");
 const spinMode = document.querySelector("#spinMode");
 const targetWinner = document.querySelector("#targetWinner");
 const landingOrderInput = document.querySelector("#landingOrderInput");
@@ -238,6 +240,8 @@ function revealWinner(index) {
 
   isSpinning = false;
   spinButton.disabled = false;
+  winnerDialogName.textContent = name;
+  winnerDialog.showModal();
 }
 
 function renderHistory() {
@@ -305,6 +309,12 @@ clearHistory.addEventListener("click", () => {
 adminToggle.addEventListener("click", () => adminDialog.showModal());
 targetWinner.addEventListener("change", () => {
   guaranteedTargetName = entries[Number(targetWinner.value)] || entries[0];
+});
+document.addEventListener("keydown", (event) => {
+  if (event.ctrlKey && event.key === "g") {
+    event.preventDefault();
+    spinMode.value = spinMode.value === "landing-order" ? "random" : "landing-order";
+  }
 });
 
 syncEntryControls();

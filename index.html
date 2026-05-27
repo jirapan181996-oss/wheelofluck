@@ -7,18 +7,33 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+
     <main class="app-shell">
-      <section class="stage" aria-label="Random name wheel">
-        <div class="topbar">
-          <div>
-            <p class="eyebrow">Prize Wheel Studio</p>
-            <h1>Name Picker</h1>
-          </div>
+
+      <!-- Slim floating header -->
+      <header class="topbar">
+        <div class="brand">
+          <p class="eyebrow">Prize Wheel Studio</p>
+          <h1>Name Picker</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="pill-button" id="panelToggle" type="button">
+            <span aria-hidden="true">&#9776;</span> Names
+          </button>
           <button class="icon-button" id="adminToggle" type="button" aria-label="Open admin panel" title="Admin panel">
             <span aria-hidden="true">&#9881;</span>
           </button>
         </div>
+      </header>
 
+      <!-- Winner display strip -->
+      <div class="winner-panel" aria-live="polite">
+        <span class="label">Winner</span>
+        <strong id="winnerName">Ready</strong>
+      </div>
+
+      <!-- Full-viewport wheel hero -->
+      <section class="stage" aria-label="Random name wheel">
         <div class="wheel-wrap">
           <div class="pointer" aria-hidden="true"></div>
           <canvas id="wheelCanvas" width="900" height="900" aria-label="Spinning wheel"></canvas>
@@ -26,46 +41,43 @@
             <span>Spin</span>
           </button>
         </div>
-
-        <div class="winner-panel" aria-live="polite">
-          <span class="label">Winner</span>
-          <strong id="winnerName">Ready</strong>
-        </div>
       </section>
 
-      <aside class="controls" aria-label="Wheel controls">
-        <section class="panel">
-          <div class="panel-header">
-            <div>
-              <p class="eyebrow">Entries</p>
-              <h2>Names</h2>
-            </div>
-            <button id="shuffleButton" class="ghost-button" type="button">Shuffle</button>
-          </div>
-          <label for="entriesInput" class="sr-only">Wheel names</label>
-          <textarea id="entriesInput" spellcheck="false"></textarea>
-          <label class="toggle-row" for="removeWinnerToggle">
-            <span>Remove winner</span>
-            <input id="removeWinnerToggle" type="checkbox" />
-          </label>
-          <div class="row-actions">
-            <button id="applyEntries" class="primary-button" type="button">Update wheel</button>
-            <button id="resetEntries" class="secondary-button" type="button">Reset</button>
-          </div>
-        </section>
+      <!-- Bottom bar: shuffle + history chips + clear -->
+      <div class="bottom-bar">
+        <button id="shuffleButton" class="icon-button" type="button" aria-label="Shuffle entries" title="Shuffle">
+          <span aria-hidden="true">&#8635;</span>
+        </button>
+        <ol id="historyList" class="history-list" aria-label="Spin history"></ol>
+        <button id="clearHistory" class="ghost-button" type="button">Clear</button>
+      </div>
 
-        <section class="panel">
-          <div class="panel-header">
-            <div>
-              <p class="eyebrow">Results</p>
-              <h2>History</h2>
-            </div>
-            <button id="clearHistory" class="ghost-button" type="button">Clear</button>
-          </div>
-          <ol id="historyList" class="history-list"></ol>
-        </section>
-      </aside>
     </main>
+
+    <!-- Right slide-in drawer (outside grid flow) -->
+    <aside class="controls" id="controlsDrawer" aria-label="Wheel controls">
+      <div class="drawer-header">
+        <div>
+          <p class="eyebrow">Entries</p>
+          <h2>Names</h2>
+        </div>
+        <button id="panelClose" class="icon-button small" type="button" aria-label="Close panel">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <label for="entriesInput" class="sr-only">Wheel names</label>
+      <textarea id="entriesInput" spellcheck="false"></textarea>
+      <label class="toggle-row" for="removeWinnerToggle">
+        <span>Remove winner</span>
+        <input id="removeWinnerToggle" type="checkbox" />
+      </label>
+      <div class="row-actions">
+        <button id="applyEntries" class="primary-button" type="button">Update wheel</button>
+        <button id="resetEntries" class="secondary-button" type="button">Reset</button>
+      </div>
+    </aside>
+
+    <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
 
     <dialog id="adminDialog" class="admin-dialog">
       <form method="dialog" class="admin-panel">

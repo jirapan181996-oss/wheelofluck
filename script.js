@@ -32,7 +32,7 @@ const defaultEntries = [
   "Jules"
 ];
 
-const palette = ["#e84f36", "#0a7a75", "#f4b942", "#325c9f", "#90be6d", "#a65fbd", "#f07f3c", "#35a7a0"];
+const palette = ["#ff4757", "#7c3aed", "#ffd60a", "#00cfde", "#ff6348", "#a855f7", "#3b82f6", "#10b981", "#f97316", "#ec4899"];
 let allEntries = [...defaultEntries];
 let entries = [...defaultEntries];
 let rotation = 0;
@@ -84,8 +84,8 @@ function drawWheel() {
     ctx.fillStyle = palette[index % palette.length];
     ctx.fill();
 
-    ctx.lineWidth = 6;
-    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "rgba(7, 11, 26, 0.55)";
     ctx.stroke();
 
     ctx.save();
@@ -95,24 +95,24 @@ function drawWheel() {
     ctx.textBaseline = "middle";
     ctx.fillStyle = "#ffffff";
     ctx.font = `800 ${labelFontSize(entry, segment)}px Inter, system-ui, sans-serif`;
-    ctx.shadowColor = "rgba(16, 24, 40, 0.22)";
-    ctx.shadowBlur = 3;
+    ctx.shadowColor = "rgba(0, 0, 0, 0.55)";
+    ctx.shadowBlur = 5;
     ctx.fillText(entry, radius - 52, 0, radius * 0.52);
     ctx.restore();
   });
 
   ctx.beginPath();
   ctx.arc(cx, cy, radius + 1, 0, Math.PI * 2);
-  ctx.lineWidth = 12;
-  ctx.strokeStyle = "#ffffff";
+  ctx.lineWidth = 14;
+  ctx.strokeStyle = "rgba(255, 214, 10, 0.55)";
   ctx.stroke();
 
   ctx.beginPath();
   ctx.arc(cx, cy, radius * 0.14, 0, Math.PI * 2);
-  ctx.fillStyle = "#101828";
+  ctx.fillStyle = "#0a0e1e";
   ctx.fill();
   ctx.lineWidth = 9;
-  ctx.strokeStyle = "#ffffff";
+  ctx.strokeStyle = "rgba(124, 58, 237, 0.6)";
   ctx.stroke();
 }
 
@@ -320,3 +320,22 @@ document.addEventListener("keydown", (event) => {
 syncEntryControls();
 renderHistory();
 drawWheel();
+
+// Drawer open/close
+const panelToggle = document.querySelector("#panelToggle");
+const panelClose = document.querySelector("#panelClose");
+const controlsDrawer = document.querySelector("#controlsDrawer");
+const drawerBackdrop = document.querySelector("#drawerBackdrop");
+
+function openDrawer() {
+  controlsDrawer.classList.add("open");
+  drawerBackdrop.classList.add("open");
+}
+function closeDrawer() {
+  controlsDrawer.classList.remove("open");
+  drawerBackdrop.classList.remove("open");
+}
+
+panelToggle.addEventListener("click", openDrawer);
+panelClose.addEventListener("click", closeDrawer);
+drawerBackdrop.addEventListener("click", closeDrawer);
